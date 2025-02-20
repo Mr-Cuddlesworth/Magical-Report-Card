@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background-color: #f9f7f1;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #4a2d0f;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            color: #4a2d0f;
+        }
+        .school-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .student-info {
+            margin: 20px 0;
+            line-height: 1.6;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .student-info input {
+            border: none;
+            border-bottom: 1px solid #4a2d0f;
+            margin-left: 5px;
+            padding: 2px;
+            width: 200px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #4a2d0f;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #4a2d0f;
+            color: #fff;
+        }
+        .subject-header {
+            background-color: #e6d5c1;
+            font-weight: bold;
+        }
+        select {
+            border: none;
+            width: 50px;
+            padding: 2px;
+        }
+        textarea {
+            width: 100%;
+            border: none;
+            resize: vertical;
+            min-height: 30px;
+        }
+        .grade-scale {
+            font-size: 12px;
+            margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .signature-line {
+            margin-top: 40px;
+            border-top: 1px solid #4a2d0f;
+            width: 200px;
+            text-align: center;
+            padding-top: 5px;
+            color: #4a2d0f;
+        }
+        .seal {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #4a2d0f;
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            color: #4a2d0f;
+        }
+        .controls {
+            margin: 20px 0;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #4a2d0f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #6b4423;
+        }
+        @media print {
+            .controls {
+                display: none;
+            }
+            body {
+                background-color: white;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="window.print()">Print Report Card</button>
+        <button onclick="saveToLocalStorage()">Save Draft</button>
+        <button onclick="loadFromLocalStorage()">Load Last Draft</button>
+        <button onclick="resetForm()">Reset Form</button>
+    </div>
+
+    <div class="header">
+        <div class="school-name">ACADEMY OF MYSTICAL ARTS</div>
+        <div>Term Report - Fall 2024</div>
+    </div>
+
+    <div class="student-info">
+        <strong>Student Name:</strong><input type="text" id="studentName"><br>
+        <strong>Year Level:</strong><input type="text" id="yearLevel"><br>
+        <strong>House:</strong><input type="text" id="house"><br>
+        <strong>Advisor:</strong><input type="text" id="advisor"><br>
+        <strong>Wand Type:</strong><input type="text" id="wandType"><br>
+        <strong>Familiar:</strong><input type="text" id="familiar">
+    </div>
+
+    <table id="gradesTable">
+        <tr>
+            <th>Course</th>
+            <th>Grade</th>
+            <th>Instructor Comments</th>
+        </tr>
+        <tr class="subject-header">
+            <td><strong>Core Studies</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Fundamental Spellcasting</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr>
+            <td>Magical Theory & Ethics</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr>
+            <td>Alchemical Foundations</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr class="subject-header">
+            <td><strong>Applied Magic</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Enchantment & Artificing</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr>
+            <td>Combat Magic</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr class="subject-header">
+            <td><strong>Specialized Studies</strong></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Divination & Prophecy</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+        <tr>
+            <td>Runic Studies</td>
+            <td>
+                <select>
+                    <option>A+</option>
+                    <option>A</option>
+                    <option>A-</option>
+                    <option>B+</option>
+                    <option>B</option>
+                    <option>B-</option>
+                    <option>C+</option>
+                    <option>C</option>
+                    <option>C-</option>
+                    <option>D</option>
+                    <option>F</option>
+                </select>
+            </td>
+            <td><textarea placeholder="Enter comments..."></textarea></td>
+        </tr>
+    </table>
+
+    <div class="grade-scale">
+        <strong>Grading Scale:</strong><br>
+        A (Outstanding) | B (Exceeds Expectations) | C (Acceptable)<br>
+        D (Poor) | F (Troll)<br><br>
+        <strong>Additional Notes:</strong><br>
+        <textarea placeholder="Enter additional notes..." style="width: 100%; height: 100px;"></textarea>
+    </div>
+
+    <div class="seal">
+        Official Seal<br>
+        of the<br>
+        Academy
+    </div>
+
+    <div class="signature-line">
+        Headmaster's Signature
+    </div>
+
+    <script>
+        function saveToLocalStorage() {
+            const formData = {
+                studentName: document.getElementById('studentName').value,
+                yearLevel: document.getElementById('yearLevel').value,
+                house: document.getElementById('house').value,
+                advisor: document.getElementById('advisor').value,
+                wandType: document.getElementById('wandType').value,
+                familiar: document.getElementById('familiar').value,
+                grades: Array.from(document.querySelectorAll('select')).map(select => select.value),
+                comments: Array.from(document.querySelectorAll('textarea')).map(textarea => textarea.value)
+            };
+            localStorage.setItem('reportCardData', JSON.stringify(formData));
+            alert('Report card draft saved!');
+        }
+
+        function loadFromLocalStorage() {
+            const savedData = JSON.parse(localStorage.getItem('reportCardData'));
+            if (savedData) {
+                document.getElementById('studentName').value = savedData.studentName;
+                document.getElementById('yearLevel').value = savedData.yearLevel;
+                document.getElementById('house').value = savedData.house;
+                document.getElementById('advisor').value = savedData.advisor;
+                document.getElementById('wandType').value = savedData.wandType;
+                document.getElementById('familiar').value = savedData.familiar;
+
+                const selects = document.querySelectorAll('select');
+                const textareas = document.querySelectorAll('textarea');
+
+                savedData.grades.forEach((grade, index) => {
+                    if (selects[index]) selects[index].value = grade;
+                });
+
+                savedData.comments.forEach((comment, index) => {
+                    if (textareas[index]) textareas[index].value = comment;
+                });
+
+                alert('Report card draft loaded!');
+            } else {
+                alert('No saved draft found!');
+            }
+        }
+
+        function resetForm() {
+            if (confirm('Are you sure you want to reset the form? All entered data will be lost.')) {
+                document.getElementById('studentName').value = '';
+                document.getElementById('yearLevel').value = '';
+                document.getElementById('house').value = '';
+                document.getElementById('advisor').value = '';
+                document.getElementById('wandType').value = '';
+                document.getElementById('familiar').value = '';
+
+                document.querySelectorAll('select').forEach(select => {
+                    select.selectedIndex = 0;
+                });
+
+                document.querySelectorAll('textarea').forEach(textarea => {
+                    textarea.value = '';
+                });
+            }
+        }
+    </script>
+</body>
+</html>
